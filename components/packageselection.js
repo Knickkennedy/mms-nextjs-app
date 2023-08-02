@@ -62,7 +62,7 @@ export default function PackageSelection({ incomingMms }) {
 
     useEffect(() => {
         for (const index in packaging) {
-            fetch('https://api.watsoncommerce.ibm.com/inventory/us-93beb071/v1/availability/network', {
+            fetch('https://api.watsoncommerce.ibm.com/inventory/us-1bbb91c7/v1/availability/network', {
                 method: 'POST',
                 body: JSON.stringify({
                     distributionGroupId: "DIAB_ALL",
