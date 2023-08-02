@@ -14,7 +14,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main 
-        className="w-full h-screen flex flex-row-reverse bg-slate-100"
+        className="w-full h-screen flex flex-row-reverse bg-slate-100 bg-cover"
         style={{ backgroundImage: `url(${Background.src})`}}
       >
         <Floatbox />
