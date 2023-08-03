@@ -56,14 +56,14 @@ export default function Floatbox() {
             available: true
         },
         {
-            id: 'Y0001',
+            id: 'YC0001',
             color: 'bg-mm-yellow border-solid border-4 border-black',
             available: true
         }])
 
     useEffect(() => {
         for (const index in mms) {
-            fetch('https://api.watsoncommerce.ibm.com/inventory/us-1bbb91c7/v1/availability/network', {
+            fetch('https://api.watsoncommerce.ibm.com/inventory/us-1bbb91c7/v2/availability/network', {
                 method: 'POST',
                 body: JSON.stringify({
                     distributionGroupId: "DIAB_ALL",
@@ -85,7 +85,8 @@ export default function Floatbox() {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    if (data.lines[0].networkAvailabilities[0].onhandAvailableQuantity <= 0) {
+                    console.log(data)
+                    if (data.lines[0].networkAvailabilities[0].currentAvailability.availableQuantity <= 0) {
                         updateAvailability(index)
                     }
                 })

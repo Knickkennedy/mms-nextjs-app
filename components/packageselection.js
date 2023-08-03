@@ -40,7 +40,7 @@ export default function PackageSelection({ incomingMms }) {
             name: 'Party Favor Packs',
             available: true,
             availabilityDate: '',
-            chosen: ''
+            chosen: 'border-solid border-4 border-black'
         },
         {
             id: 'DIY0001',
@@ -48,7 +48,7 @@ export default function PackageSelection({ incomingMms }) {
             name: 'DIY Mini Occasion Bottle Party Favor Kit',
             available: true,
             availabilityDate: '',
-            chosen: ''
+            chosen: 'border-solid border-4 border-black'
         },
         {
             id: 'WR0001',
@@ -62,7 +62,7 @@ export default function PackageSelection({ incomingMms }) {
 
     useEffect(() => {
         for (const index in packaging) {
-            fetch('https://api.watsoncommerce.ibm.com/inventory/us-1bbb91c7/v1/availability/network', {
+            fetch('https://api.watsoncommerce.ibm.com/inventory/us-1bbb91c7/v2/availability/network', {
                 method: 'POST',
                 body: JSON.stringify({
                     distributionGroupId: "DIAB_ALL",
@@ -84,8 +84,14 @@ export default function PackageSelection({ incomingMms }) {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    if (data.lines[0].networkAvailabilities[0].onhandAvailableQuantity <= 0) {
-                        updateAvailability(index, data.lines[0].networkAvailabilities[0].futureEarliestShipTs)
+                    console.log(data.lines[0].networkAvailabilities[0].futureAvailability)
+                    if(data.lines[0].networkAvailabilities[0].currentAvailability.availableQuantity <= 0){
+                        if(data.lines[0].networkAvailabilities[0].futureAvailability.length > 0){
+                            if(data.lines[0].networkAvailabilities[0].futureAvailability[0].availableQuantity > 0){
+                                console.log(data.lines[0].networkAvailabilities[0].futureAvailability[0].fromTs)
+                                updateAvailability(index, data.lines[0].networkAvailabilities[0].futureAvailability[0].fromTs)
+                            }
+                        }
                     }
                 })
         }
