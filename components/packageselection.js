@@ -101,7 +101,9 @@ export default function PackageSelection({ incomingMms }) {
         const newpackaging = packaging.map((pack, i) => {
             if(i == ind){
                 pack.available = false
-                pack.availabilityDate = dayjs(date).format('MMMM D, YYYY')
+                const day = dayjs(date)
+                const updated = day.add(8, 'hour')
+                pack.availabilityDate = updated.format('MMMM D, YYYY')
                 console.log(pack.availabilityDate)
                 return pack
             }
